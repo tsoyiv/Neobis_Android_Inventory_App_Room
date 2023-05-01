@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homePageFragment"
+        android:icon="@drawable/home_page_icon"
+        android:title="Главное" />
+    <item
+        android:id="@+id/archivePageFragment"
+        android:icon="@drawable/ic_baseline_archive_24"
+        android:title="Архив" />
+</menu>
