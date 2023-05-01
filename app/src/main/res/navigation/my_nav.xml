@@ -7,12 +7,25 @@
 
     <fragment
         android:id="@+id/homePageFragment"
-        android:name="com.example.shop_app.HomePageFragment"
+        android:name="com.example.shop_app.fragments.list.HomePageFragment"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePageFragment_to_addPageFragment"
+            app:destination="@id/addPageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/archivePageFragment"
-        android:name="com.example.shop_app.ArchivePageFragment"
+        android:name="com.example.shop_app.fragments.list.ArchivePageFragment"
         android:label="fragment_archive_page"
         tools:layout="@layout/fragment_archive_page" />
+    <fragment
+        android:id="@+id/addPageFragment"
+        android:name="com.example.shop_app.fragments.add.AddPageFragment"
+        android:label="fragment_add_page"
+        tools:layout="@layout/fragment_add_page" >
+        <action
+            android:id="@+id/action_addPageFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+    </fragment>
 </navigation>
