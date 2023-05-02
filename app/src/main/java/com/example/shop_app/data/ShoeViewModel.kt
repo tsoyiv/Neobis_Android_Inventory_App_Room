@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class ShoeViewModel(application: Application): AndroidViewModel(application) {
 
-    private val readAllData: LiveData<List<Shoe>>
+    val readAllData: LiveData<List<Shoe>>
     private val repository: ShoeRepository
 
     init {
