@@ -1,9 +1,12 @@
-package com.example.shop_app.data
+package com.example.shop_app.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.shop_app.data.ShoeDatabase
+import com.example.shop_app.repository.ShoeRepository
+import com.example.shop_app.model.Shoe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

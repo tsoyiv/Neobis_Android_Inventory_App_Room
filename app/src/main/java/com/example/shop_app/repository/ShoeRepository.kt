@@ -1,6 +1,8 @@
-package com.example.shop_app.data
+package com.example.shop_app.repository
 
 import androidx.lifecycle.LiveData
+import com.example.shop_app.data.ShoeDao
+import com.example.shop_app.model.Shoe
 
 class ShoeRepository(private val shoeDao: ShoeDao) {
 

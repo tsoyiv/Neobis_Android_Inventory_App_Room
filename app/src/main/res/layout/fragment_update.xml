@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="24dp"
-    tools:context=".fragments.add.AddPageFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
+    tools:context=".fragments.update.UpdateFragment">
 
     <EditText
-        android:id="@+id/add_name_item"
+        android:id="@+id/update_name_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
@@ -23,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/add_cost_item"
+        android:id="@+id/update_cost_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -32,10 +29,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_name_item" />
+        app:layout_constraintTop_toBottomOf="@+id/update_name_item" />
 
     <EditText
-        android:id="@+id/add_ditri_items"
+        android:id="@+id/update_ditri_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
@@ -44,10 +41,10 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_cost_item" />
+        app:layout_constraintTop_toBottomOf="@+id/update_cost_item" />
 
     <EditText
-        android:id="@+id/add_amount_item"
+        android:id="@+id/update_amount_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -57,15 +54,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_ditri_items" />
+        app:layout_constraintTop_toBottomOf="@+id/update_ditri_items" />
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="Добавить"
+        android:text="Сохранить"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_amount_item" />
+        app:layout_constraintTop_toBottomOf="@+id/update_amount_item" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

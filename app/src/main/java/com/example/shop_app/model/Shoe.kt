@@ -1,8 +1,11 @@
-package com.example.shop_app.data
+package com.example.shop_app.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "shoe_table")
 data class Shoe(
     @PrimaryKey(autoGenerate = true)
@@ -11,4 +14,4 @@ data class Shoe(
     val price: String,
     val distributor: String,
     val amount: String
-)
+): Parcelable

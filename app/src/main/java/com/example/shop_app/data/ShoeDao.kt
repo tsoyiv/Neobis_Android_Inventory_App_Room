@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlin.coroutines.Continuation
+import com.example.shop_app.model.Shoe
 
 @Dao
 interface ShoeDao {

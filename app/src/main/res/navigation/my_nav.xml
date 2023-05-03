@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_addPageFragment"
             app:destination="@id/addPageFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
     </fragment>
     <fragment
         android:id="@+id/archivePageFragment"
@@ -27,5 +30,17 @@
         <action
             android:id="@+id/action_addPageFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.example.shop_app.fragments.update.UpdateFragment"
+        android:label="Update"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+        <argument
+            android:name="currentShoe"
+            app:argType="com.example.shop_app.model.Shoe" />
     </fragment>
 </navigation>
