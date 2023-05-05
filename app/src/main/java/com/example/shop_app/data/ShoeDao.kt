@@ -5,6 +5,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 import com.example.shop_app.model.Shoe
 
 @Dao
@@ -15,5 +17,11 @@ interface ShoeDao {
 
     @Query("SELECT * FROM shoe_table ORDER BY id ASC")
     fun readAllData(): LiveData<List<Shoe>>
+
+    @Query("SELECT * FROM shoe_table WHERE name LIKE :searchQuery OR distributor LIKE :searchQuery")
+    fun searchDatabase(searchQuery: String): Flow<List<Shoe>>
+
+    @Update
+    fun updateShoe(shoe: Shoe)
 
 }

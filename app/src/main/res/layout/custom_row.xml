@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="12dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="11dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="30dp"
+    android:background="#F9F9F9"
     android:id="@+id/rowLayout"
     >
 
@@ -20,8 +21,9 @@
             android:id="@+id/name_id_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="151dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginEnd="100dp"
             android:fontFamily="@font/open_sans_bold"
             android:text="Air Jordan"
             android:textColor="#000000"
@@ -35,45 +37,63 @@
             android:id="@+id/price_id_tem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="98dp"
             android:fontFamily="@font/open_sans_bold"
             android:text="$ 1500.00"
             android:textColor="#75B4FE"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBaseline_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name_id_item" />
 
         <TextView
             android:id="@+id/distri_id_tem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="100dp"
             android:fontFamily="@font/open_sans_bold"
             android:text="Nike"
             android:textColor="#ADAEAE"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBaseline_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/price_id_tem" />
 
         <TextView
             android:id="@+id/amount_id_tem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="16dp"
             android:fontFamily="@font/open_sans_bold"
             android:text="105 шт"
             android:textColor="#ADAEAE"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBaseline_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/distri_id_tem" />
 
-
+        <ImageButton
+            android:id="@+id/action_button_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:background="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.956"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.059"
+            app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,12 @@
 package com.example.shop_app.fragments.list
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.ListFragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shop_app.R
 import com.example.shop_app.model.Shoe
@@ -22,12 +24,23 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         )
     }
 
+    fun setList(mList: List<Shoe>) {
+        this.shoeList = mList
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = shoeList[position]
         holder.itemView.name_id_item.text = currentItem.name
         holder.itemView.price_id_tem.text = currentItem.price
-        holder.itemView.amount_id_tem.text = currentItem.amount
         holder.itemView.distri_id_tem.text = currentItem.distributor
+        holder.itemView.amount_id_tem.text = currentItem.amount
+
+        holder.itemView.rowLayout.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putParcelable("shoe", currentItem)
+            it.findNavController().navigate(R.id.action_homePageFragment_to_updateFragment, bundle)
+        }
     }
 
     override fun getItemCount(): Int {

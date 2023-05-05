@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_add_page.view.*
 
 class AddPageFragment : Fragment() {
 
-    private lateinit var mUserViewModel: ShoeViewModel
+    private lateinit var mShoeViewModel: ShoeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +26,7 @@ class AddPageFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_page, container, false)
 
-        mUserViewModel = ViewModelProvider(this).get(ShoeViewModel::class.java)
+        mShoeViewModel = ViewModelProvider(this).get(ShoeViewModel::class.java)
 
         view.add_button.setOnClickListener {
             insertDataToDatabase()
@@ -36,14 +36,14 @@ class AddPageFragment : Fragment() {
     }
 
     private fun insertDataToDatabase() {
-        val name_shoe = add_name_item.text.toString()
-        val price_shoe = add_cost_item.text.toString()
-        val distributor_shoe = add_ditri_items.text.toString()
-        val amount_shoe = add_amount_item.text.toString()
+        val name_shoe = item_name_text.text.toString()
+        val price_shoe = item_price_text.text.toString()
+        val distributor_shoe = item_distributor_text.text.toString()
+        val amount_shoe = item_amount_text.text.toString()
 
         if (inputCheck(name_shoe,price_shoe, distributor_shoe, amount_shoe)) {
             val shoe = Shoe(0, name_shoe, price_shoe, distributor_shoe, amount_shoe)
-            mUserViewModel.addShoe(shoe)
+            mShoeViewModel.addShoe(shoe)
             Toast.makeText(requireContext(), "Added", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_addPageFragment_to_homePageFragment)
         } else {

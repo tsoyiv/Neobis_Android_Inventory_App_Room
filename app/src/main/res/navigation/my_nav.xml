@@ -41,6 +41,8 @@
             app:destination="@id/homePageFragment" />
         <argument
             android:name="currentShoe"
-            app:argType="com.example.shop_app.model.Shoe" />
+            app:argType="com.example.shop_app.model.Shoe"
+            android:defaultValue="@null"
+            app:nullable="true"/>
     </fragment>
 </navigation>
