@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.fragment.app.ListFragment
 import androidx.navigation.findNavController
@@ -12,9 +13,10 @@ import com.example.shop_app.R
 import com.example.shop_app.model.Shoe
 import kotlinx.android.synthetic.main.custom_row.view.*
 
-class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     private var shoeList = emptyList<Shoe>()
+    private var onClickListener: OnClickListener? = null
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
 

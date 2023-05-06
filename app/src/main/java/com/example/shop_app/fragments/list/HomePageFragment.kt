@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,12 +20,14 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.request.SuccessResult
 import com.android.volley.toolbox.ImageLoader
 import androidx.appcompat.widget.SearchView
+import androidx.cardview.widget.CardView
 import com.android.volley.toolbox.ImageRequest
 import com.example.shop_app.R
 import com.example.shop_app.databinding.ActivityMainBinding
 import com.example.shop_app.model.Shoe
 import com.example.shop_app.viewmodel.ShoeViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.*
 import kotlinx.android.synthetic.main.fragment_home_page.view.*
 import java.util.*
