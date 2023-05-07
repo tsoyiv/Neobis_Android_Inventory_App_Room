@@ -16,8 +16,10 @@ import com.example.shop_app.model.Shoe
 import com.example.shop_app.viewmodel.ShoeViewModel
 import com.google.android.material.progressindicator.BaseProgressIndicator.ShowAnimationBehavior
 import kotlinx.android.synthetic.main.fragment_add_page.*
+import kotlinx.android.synthetic.main.fragment_add_page.view.*
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
+import kotlinx.android.synthetic.main.fragment_update.view.cancel_text_btn
 
 class UpdateFragment : Fragment() {
 
@@ -43,6 +45,13 @@ class UpdateFragment : Fragment() {
 
         view.update_button.setOnClickListener {
             updateItem()
+        }
+
+        view.arrow_update_fragment_back.setOnClickListener {
+            findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
+        }
+        view.cancel_text_btn.setOnClickListener {
+            findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
         }
 
         return view

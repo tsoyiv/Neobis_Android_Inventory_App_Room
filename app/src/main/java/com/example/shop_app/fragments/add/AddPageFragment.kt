@@ -32,6 +32,12 @@ class AddPageFragment : Fragment() {
         view.add_button.setOnClickListener {
             insertDataToDatabase()
         }
+        view.cancel_text_btn.setOnClickListener {
+            findNavController().navigate(R.id.action_addPageFragment_to_homePageFragment)
+        }
+        view.arrow_add_fragment_back.setOnClickListener {
+            findNavController().navigate(R.id.action_addPageFragment_to_homePageFragment)
+        }
 
         return view
     }
