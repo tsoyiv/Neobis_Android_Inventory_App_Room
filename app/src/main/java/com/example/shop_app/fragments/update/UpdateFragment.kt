@@ -1,5 +1,6 @@
 package com.example.shop_app.fragments.update
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -54,7 +55,25 @@ class UpdateFragment : Fragment() {
             findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
         }
 
+        view.update_remove_btn.setOnClickListener {
+            deleteShoe()
+        }
+
         return view
+    }
+
+    private fun deleteShoe() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _,_ ->
+            mShoeViewModel.deleteAllShoe(args.currentShoe)
+            Toast.makeText(requireContext(), "Removed", Toast.LENGTH_SHORT).show()
+
+        }
+        builder.setNegativeButton("No") { _,_ ->
+            builder.setTitle("Delete ${args.currentShoe?.name}?")
+            builder.setMessage("Are you sure ${args.currentShoe?.name}?")
+            builder.create().show()
+        }
     }
 
     private fun updateItem() {

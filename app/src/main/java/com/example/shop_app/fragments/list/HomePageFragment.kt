@@ -56,6 +56,7 @@ class HomePageFragment : Fragment() {
             }
 
         })
+
 //        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 //            override fun onQueryTextSubmit(query: String?): Boolean {
 //                if (query != null) {

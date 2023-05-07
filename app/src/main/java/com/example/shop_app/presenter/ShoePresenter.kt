@@ -20,4 +20,11 @@ class ShoePresenter(private val shoeDao: ShoeDao) {
     fun updateShoe(shoe: Shoe) {
         shoeDao.updateShoe(shoe)
     }
+
+    suspend fun deleteShoe(shoe: Shoe) {
+        shoeDao.deleteShoe(shoe)
+    }
+    suspend fun deleteAllShoe() {
+        shoeDao.deleteAllShoe()
+    }
 }
