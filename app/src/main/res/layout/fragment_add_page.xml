@@ -9,6 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+
     <TextView
         android:id="@+id/name_text_disr"
         android:layout_width="wrap_content"
@@ -205,6 +206,7 @@
         android:layout_marginStart="224dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
+        android:background="#2A8CFF"
         android:text="Добавить"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.786"
@@ -242,4 +244,18 @@
         app:layout_constraintEnd_toStartOf="@+id/add_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_amount_item" />
+
+    <ImageButton
+        android:id="@+id/add_imgae_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/image_button"
+        app:layout_constraintBottom_toTopOf="@+id/name_text_disr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_addItem" />
 </androidx.constraintlayout.widget.ConstraintLayout>

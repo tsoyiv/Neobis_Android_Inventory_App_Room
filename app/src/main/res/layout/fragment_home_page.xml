@@ -69,6 +69,7 @@
         android:focusable="true"
         android:src="@drawable/ic_add"
         android:tint="@android:color/white"
+        android:background="#003C68"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

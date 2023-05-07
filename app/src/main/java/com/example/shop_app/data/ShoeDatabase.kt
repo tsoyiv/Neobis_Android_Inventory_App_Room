@@ -5,9 +5,12 @@ import android.database.sqlite.SQLiteOpenHelper
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.bumptech.glide.load.model.ByteArrayLoader.Converter
 import com.example.shop_app.model.Shoe
 
 @Database(entities = [Shoe::class], version = 1, exportSchema = false)
+//@TypeConverters(Converter::class)
 abstract class ShoeDatabase : RoomDatabase() {
 
     abstract fun shoeDao(): ShoeDao

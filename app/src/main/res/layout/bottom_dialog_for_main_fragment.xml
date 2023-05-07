@@ -10,7 +10,7 @@
         android:layout_margin="2dp">
 
         <Button
-            android:id="@+id/idBtnDismiss"
+            android:id="@+id/bottom_dialog_bt_archive"
             android:layout_width="160dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"

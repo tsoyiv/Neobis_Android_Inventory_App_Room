@@ -1,35 +1,26 @@
 package com.example.shop_app.fragments.list
 
-import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import coil.request.SuccessResult
-import com.android.volley.toolbox.ImageLoader
 import androidx.appcompat.widget.SearchView
-import androidx.cardview.widget.CardView
-import com.android.volley.toolbox.ImageRequest
+import androidx.lifecycle.lifecycleScope
+import coil.ImageLoader
 import com.example.shop_app.R
 import com.example.shop_app.databinding.ActivityMainBinding
 import com.example.shop_app.model.Shoe
 import com.example.shop_app.viewmodel.ShoeViewModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.*
 import kotlinx.android.synthetic.main.fragment_home_page.view.*
+import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -91,7 +82,26 @@ class HomePageFragment : Fragment() {
             findNavController().navigate(R.id.action_homePageFragment_to_addPageFragment)
         }
 
+
+//        lifecycleScope.launch {
+//            val shoe: Shoe = Shoe(0,"Jordan", "$ 1000.00", "Nike", "150 шт", getBitmap())
+//            mShoeViewModel.addShoe(shoe)
+//        }
+//        mShoeViewModel.readAllData.observe(viewLifecycleOwner, {
+//            adapter.setData(it)
+//        })
+
         return view
+    }
+
+    private suspend fun getBitmap(): Bitmap? {
+        val loader = ImageLoader(requireContext())
+        val request = coil.request.ImageRequest.Builder(requireContext())
+            .data("https://avatars3.githubusercontent.com/u/14994036?s=400&u=2832879700f03d4b37ae1c09645352a352b9d2d0&v=4")
+            .build()
+
+        val result = (loader.execute(request) as SuccessResult).drawable
+        return (result as BitmapDrawable).bitmap
     }
 
     private fun filterList(query: String?, fromDatabase: Boolean = false) {

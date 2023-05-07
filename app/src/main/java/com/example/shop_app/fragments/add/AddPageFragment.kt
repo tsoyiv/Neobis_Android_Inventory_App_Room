@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.shop_app.R
@@ -41,8 +42,8 @@ class AddPageFragment : Fragment() {
         val distributor_shoe = item_distributor_text.text.toString()
         val amount_shoe = item_amount_text.text.toString()
 
-        if (inputCheck(name_shoe,price_shoe, distributor_shoe, amount_shoe)) {
-            val shoe = Shoe(0, name_shoe, price_shoe, distributor_shoe, amount_shoe)
+        if (inputCheck(name_shoe,price_shoe, distributor_shoe, amount_shoe, )) {
+            val shoe = Shoe(0,name_shoe, price_shoe, distributor_shoe, amount_shoe)
             mShoeViewModel.addShoe(shoe)
             Toast.makeText(requireContext(), "Added", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_addPageFragment_to_homePageFragment)
