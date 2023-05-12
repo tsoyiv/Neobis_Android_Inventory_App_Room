@@ -40,10 +40,13 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.amount_id_tem.text = currentItem.amount
         //holder.itemView.imageView.load(shoeList[position].shoeImage)
 
-        holder.itemView.rowLayout.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putParcelable("shoe", currentItem)
-            it.findNavController().navigate(R.id.action_homePageFragment_to_updateFragment, bundle)
+        holder.itemView.setOnClickListener {
+//            val bundle = Bundle()
+//            bundle.putParcelable("shoe", currentItem)
+//            it.findNavController().navigate(R.id.action_homePageFragment_to_updateFragment, bundle)
+            val action = HomePageFragmentDirections.actionHomePageFragmentToUpdateFragment()
+            action.currentShoe = currentItem
+            holder.itemView.findNavController().navigate(action)
         }
     }
 

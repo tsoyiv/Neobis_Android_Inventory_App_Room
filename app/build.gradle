@@ -4,10 +4,10 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
     id 'com.google.dagger.hilt.android'
-    id 'androidx.navigation.safeargs'
-
+//    id 'androidx.navigation.safeargs'
+    //id "androidx.navigation.safeargs.kotlin"
 }
-
+apply plugin: "androidx.navigation.safeargs"
 android {
     namespace 'com.example.shop_app'
     compileSdk 33

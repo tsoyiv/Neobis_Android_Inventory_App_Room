@@ -42,22 +42,26 @@ class UpdateFragment : Fragment() {
             view.item_updatePrice_text.setText(shoe.price)
             view.update_distri_text.setText(shoe.distributor)
             view.item_updateAmount_text.setText(shoe.amount)
+
+            view.update_button.setOnClickListener {
+                updateItem()
+            }
         }
 
-        view.update_button.setOnClickListener {
-            updateItem()
-        }
-
-        view.arrow_update_fragment_back.setOnClickListener {
-            findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
-        }
-        view.cancel_text_btn.setOnClickListener {
-            findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
-        }
-
-        view.update_remove_btn.setOnClickListener {
-            deleteShoe()
-        }
+//        view.update_button.setOnClickListener {
+//            updateItem()
+//        }
+//
+//        view.arrow_update_fragment_back.setOnClickListener {
+//            findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
+//        }
+//        view.cancel_text_btn.setOnClickListener {
+//            findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
+//        }
+//
+//        view.update_remove_btn.setOnClickListener {
+//            deleteShoe()
+//        }
 
         return view
     }
