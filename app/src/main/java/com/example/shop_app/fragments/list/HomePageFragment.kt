@@ -95,16 +95,6 @@ class HomePageFragment : Fragment() {
         return view
     }
 
-    private suspend fun getBitmap(): Bitmap? {
-        val loader = ImageLoader(requireContext())
-        val request = coil.request.ImageRequest.Builder(requireContext())
-            .data("https://avatars3.githubusercontent.com/u/14994036?s=400&u=2832879700f03d4b37ae1c09645352a352b9d2d0&v=4")
-            .build()
-
-        val result = (loader.execute(request) as SuccessResult).drawable
-        return (result as BitmapDrawable).bitmap
-    }
-
     private fun filterList(query: String?) {
         if (query != null) {
             val filteredList = ArrayList<Shoe>()

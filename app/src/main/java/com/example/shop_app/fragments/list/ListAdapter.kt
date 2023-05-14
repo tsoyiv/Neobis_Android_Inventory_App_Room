@@ -13,6 +13,7 @@ import coil.load
 import com.example.shop_app.R
 import com.example.shop_app.model.Shoe
 import kotlinx.android.synthetic.main.custom_row.view.*
+import kotlinx.android.synthetic.main.fragment_add_page.view.*
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
@@ -38,7 +39,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.price_id_tem.text = currentItem.price
         holder.itemView.distri_id_tem.text = currentItem.distributor
         holder.itemView.amount_id_tem.text = currentItem.amount
-        //holder.itemView.imageView.load(shoeList[position].shoeImage)
+        holder.itemView.add_image_button.load(shoeList[position].shoeImage)
 
         holder.itemView.setOnClickListener {
 //            val bundle = Bundle()
