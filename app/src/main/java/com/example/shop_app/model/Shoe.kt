@@ -17,5 +17,6 @@ data class Shoe(
     val price: String,
     val distributor: String,
     val amount: String,
+    //val isArchived: Boolean
     //val shoeImage: Bitmap?
 ): Parcelable

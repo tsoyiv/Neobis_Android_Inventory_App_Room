@@ -48,12 +48,13 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
             action.currentShoe = currentItem
             holder.itemView.findNavController().navigate(action)
         }
-    }
 
+        holder.itemView.action_button_item.setOnClickListener {
+        }
+    }
     override fun getItemCount(): Int {
         return shoeList.size
     }
-
     @SuppressLint("NotifyDataSetChanged")
     fun setData(shoe: List<Shoe>) {
         this.shoeList = shoe

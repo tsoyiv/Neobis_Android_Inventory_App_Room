@@ -40,7 +40,7 @@ class UpdateFragment : Fragment() {
         args.currentShoe?.let { shoe ->
             view.item_updateName_text.setText(shoe.name)
             view.item_updatePrice_text.setText(shoe.price)
-            view.update_distri_text.setText(shoe.distributor)
+            view.item_updateDistributor_text.setText(shoe.distributor)
             view.item_updateAmount_text.setText(shoe.amount)
 
             view.update_button.setOnClickListener {

@@ -105,23 +105,14 @@ class HomePageFragment : Fragment() {
         return (result as BitmapDrawable).bitmap
     }
 
-    private fun filterList(query: String?, fromDatabase: Boolean = false) {
+    private fun filterList(query: String?) {
         if (query != null) {
             val filteredList = ArrayList<Shoe>()
             val adapter = ListAdapter()
-            if (!fromDatabase) {
-                for (i in kotlin.collections.ArrayList<Shoe>()) {
-                    if (i.name.toLowerCase(Locale.ROOT).contains(query)) {
-                        filteredList.add(i)
-                    }
-                }
-            } else {
-                val searchQuery = "%$query%"
-                mShoeViewModel.searchDatabase(searchQuery).observe(this) { list ->
-                    list?.let {
-                        filteredList.addAll(it)
-                        adapter.setData(it)
-                    }
+            val searchQuery = "%$query%"
+            mShoeViewModel.searchDatabase(searchQuery).observe(viewLifecycleOwner) {
+                it.let {
+                    adapter.setData(it)
                 }
             }
             if (filteredList.isEmpty()) {
