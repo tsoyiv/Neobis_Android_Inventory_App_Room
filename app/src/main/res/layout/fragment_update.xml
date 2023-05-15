@@ -9,8 +9,8 @@
 
     <ImageButton
         android:id="@+id/update_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:layout_marginStart="105dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="105dp"
@@ -66,6 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/update_name_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@drawable/input_shape"
             android:id="@+id/item_updateName_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,6 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/update_price_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@drawable/input_shape"
             android:id="@+id/item_updatePrice_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -135,6 +137,7 @@
         app:layout_constraintTop_toBottomOf="@+id/update_distri_text">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@drawable/input_shape"
             android:id="@+id/item_updateDistributor_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -169,6 +172,7 @@
         app:layout_constraintTop_toBottomOf="@+id/amount_text_disr">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@drawable/input_shape"
             android:id="@+id/item_updateAmount_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -218,14 +222,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/update_remove_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="2dp"
-        android:src="@drawable/remove"
-        app:layout_constraintStart_toEndOf="@+id/text_updateItem"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
