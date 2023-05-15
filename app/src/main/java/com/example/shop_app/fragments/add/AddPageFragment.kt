@@ -14,6 +14,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -27,7 +28,7 @@ import kotlinx.android.synthetic.main.fragment_add_page.view.*
 class AddPageFragment : Fragment() {
 
     companion object {
-        val IMAGE_REQUEST_CODE = 100
+        val IMAGE_REQUEST_CODE = 1
     }
     private var bitmap: Bitmap? = null
     private lateinit var mShoeViewModel: ShoeViewModel
@@ -70,6 +71,14 @@ class AddPageFragment : Fragment() {
     fun ImageView.loadImage(bitmap: Bitmap) {
         setImageBitmap(bitmap)
     }
+    private val requestSinglePermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                getContent.launch()
+            } else {
+                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     private fun pickImage() {
         val intent = Intent(Intent.ACTION_PICK)

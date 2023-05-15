@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -42,6 +43,7 @@ class UpdateFragment : Fragment() {
             view.item_updatePrice_text.setText(shoe.price)
             view.item_updateDistributor_text.setText(shoe.distributor)
             view.item_updateAmount_text.setText(shoe.amount)
+            //view.update_image_button(shoe.shoeImage)
 
             view.update_button.setOnClickListener {
                 updateItem()
@@ -85,9 +87,10 @@ class UpdateFragment : Fragment() {
         val price = item_updatePrice_text.text.toString()
         val distributor = item_updateDistributor_text.text.toString()
         val amount = item_updateAmount_text.text.toString()
+        val image = update_image_button
 
         if (inputCheck(name, price, distributor, amount)) {
-            val updatedShoe = args.currentShoe?.let { Shoe(it.id, name, price, distributor, amount) }
+            val updatedShoe = args.currentShoe?.let { Shoe(it.id, name, price, distributor, amount, image.drawToBitmap()) }
             updatedShoe?.let { mShoeViewModel.updateShoe(it) }
             findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
             Toast.makeText(requireContext(), "Updated", Toast.LENGTH_LONG).show()
