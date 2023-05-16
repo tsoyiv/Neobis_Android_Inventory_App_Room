@@ -21,6 +21,7 @@ import com.example.shop_app.model.Shoe
 import com.example.shop_app.viewmodel.ShoeViewModel
 import com.example.shop_app.viewmodel.ShoeViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.*
 import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.view.*
 import kotlinx.android.synthetic.main.fragment_home_page.view.*
@@ -79,15 +80,15 @@ class HomePageFragment : Fragment(), RecyclerListener {
     }
 
     override fun archiveProduct(shoe: Shoe) {
-        val builder = AlertDialog.Builder(requireContext())
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
         val inflater = layoutInflater
         val dialogView = inflater.inflate(R.layout.bottom_dialog_for_main_fragment, null)
 
         dialogView.bottom_dialog_bt_archive.setOnClickListener {
             logicForAlertDialog(shoe)
         }
-        builder.setView(dialogView)
-        builder.create().show()
+        bottomSheetDialog.setContentView(dialogView)
+        bottomSheetDialog.show()
     }
 
     private fun logicForAlertDialog(shoe: Shoe) {

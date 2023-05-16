@@ -25,6 +25,7 @@ import com.example.shop_app.databinding.FragmentArchivePageBinding
 import com.example.shop_app.viewmodel.ArchiveViewModel
 import com.example.shop_app.viewmodel.ArchiveViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.view.*
 import kotlinx.android.synthetic.main.bottom_for_archive.*
 import kotlinx.android.synthetic.main.bottom_for_archive.view.*
@@ -90,7 +91,7 @@ class ArchivePageFragment : Fragment(), RecyclerListener {
     }
 
     override fun archiveProduct(shoe: Shoe) {
-        val builder = AlertDialog.Builder(requireContext())
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
         val inflater = layoutInflater
         val dialogView = inflater.inflate(R.layout.bottom_for_archive, null)
 
@@ -101,8 +102,8 @@ class ArchivePageFragment : Fragment(), RecyclerListener {
         bottom_archive_in_archive.setOnClickListener {
             alertDialogIn(shoe)
         }
-        builder.setView(dialogView)
-        builder.create().show()
+        bottomSheetDialog.setContentView(dialogView)
+        bottomSheetDialog.show()
     }
 
     private fun deleteFunction(shoe: Shoe) {
