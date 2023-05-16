@@ -2,7 +2,6 @@ package com.example.shop_app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -16,7 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private val adapter by lazy { ListAdapter() }
+//    private val adapter by lazy { ListAdapter() }
     private lateinit var shoeViewModel: ShoeViewModel
     private lateinit var binding: ActivityMainBinding
 

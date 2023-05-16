@@ -13,7 +13,7 @@ class ShoePresenter(private val shoeDao: ShoeDao) {
         shoeDao.addShoe(shoe)
     }
 
-    fun searchDatabase(searchQuery: String): Flow<List<Shoe>> {
+    fun searchDatabase(searchQuery: String): LiveData<List<Shoe>> {
         return shoeDao.searchDatabase(searchQuery)
     }
 

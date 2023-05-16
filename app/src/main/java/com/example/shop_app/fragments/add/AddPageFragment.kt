@@ -34,8 +34,6 @@ class AddPageFragment : Fragment() {
     private lateinit var mShoeViewModel: ShoeViewModel
     private lateinit var binding: ActivityMainBinding
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

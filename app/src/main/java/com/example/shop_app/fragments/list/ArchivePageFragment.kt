@@ -23,12 +23,12 @@ class ArchivePageFragment : Fragment() {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_archive_page, container, false)
 
-        adapter = ListAdapter()
-        val recyclerView = view.recyclerview
-        recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
-        recyclerView?.layoutManager = GridLayoutManager(requireContext(), 2)
-        searchView = view.findViewById(R.id.search_view_archive)
+//        adapter = ListAdapter()
+//        val recyclerView = view.recyclerview
+//        recyclerView.adapter = adapter
+//        recyclerView.setHasFixedSize(true)
+//        recyclerView?.layoutManager = GridLayoutManager(requireContext(), 2)
+//        searchView = view.findViewById(R.id.search_view_archive)
 
         return view
     }

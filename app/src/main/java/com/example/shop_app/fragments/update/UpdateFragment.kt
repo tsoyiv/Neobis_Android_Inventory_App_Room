@@ -1,6 +1,10 @@
 package com.example.shop_app.fragments.update
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -8,12 +12,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.launch
 import androidx.core.view.drawToBitmap
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.shop_app.R
+import com.example.shop_app.databinding.ActivityMainBinding
+import com.example.shop_app.fragments.add.AddPageFragment
 import com.example.shop_app.model.Shoe
 import com.example.shop_app.viewmodel.ShoeViewModel
 import com.google.android.material.progressindicator.BaseProgressIndicator.ShowAnimationBehavior
@@ -28,45 +38,84 @@ class UpdateFragment : Fragment() {
     private val args: UpdateFragmentArgs by navArgs()
     private lateinit var mShoeViewModel: ShoeViewModel
     private lateinit var editText: EditText
+    private lateinit var binding: ActivityMainBinding
+    private var bitmap: Bitmap? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_update, container, false)
 
         mShoeViewModel = ViewModelProvider(this).get(ShoeViewModel::class.java)
+
+        view.arrow_update_fragment_back.setOnClickListener {
+            findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
+        }
+        view.cancel_text_btn.setOnClickListener {
+            findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
+        }
 
         args.currentShoe?.let { shoe ->
             view.item_updateName_text.setText(shoe.name)
             view.item_updatePrice_text.setText(shoe.price)
             view.item_updateDistributor_text.setText(shoe.distributor)
             view.item_updateAmount_text.setText(shoe.amount)
-            //view.update_image_button(shoe.shoeImage)
-
+            view.update_image_button.setImageBitmap(args.currentShoe!!.shoeImage)
+            view.update_image_button.setOnClickListener {
+                pickImage()
+            }
             view.update_button.setOnClickListener {
-                updateItem()
+                alertDialogSave()
             }
         }
 
-//        view.update_button.setOnClickListener {
-//            updateItem()
-//        }
-//
-//        view.arrow_update_fragment_back.setOnClickListener {
-//            findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
-//        }
-//        view.cancel_text_btn.setOnClickListener {
-//            findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
-//        }
-//
-//        view.update_remove_btn.setOnClickListener {
-//            deleteShoe()
-//        }
-
         return view
     }
+
+    private fun alertDialogSave() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Сохранить изменения?")
+        builder.setPositiveButton("Сохранить") { _,_ ->
+            updateItem()
+        }
+        builder.setNegativeButton("Отмена") { _,_ ->
+            builder.setCancelable(true)
+        }
+        builder.create().show()
+    }
+
+    private fun pickImage() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, AddPageFragment.IMAGE_REQUEST_CODE)
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == AddPageFragment.IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val path: Uri? = data?.data
+            view?.update_image_button?.setImageURI(path)
+        }
+    }
+    private val getContent =
+        registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
+            if (bitmap != null) {
+                val updateImage = binding.root.findViewById<ImageButton>(R.id.update_image_button)
+                updateImage.loadImage(bitmap)
+                this.bitmap = bitmap
+            }
+        }
+    fun ImageView.loadImage(bitmap: Bitmap) {
+        setImageBitmap(bitmap)
+    }
+    private val requestSinglePermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                getContent.launch()
+            } else {
+                Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     private fun deleteShoe() {
         val builder = AlertDialog.Builder(requireContext())

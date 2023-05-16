@@ -1,30 +1,30 @@
 package com.example.shop_app.fragments.list
 
 import android.annotation.SuppressLint
-import android.os.Bundle
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
-import android.view.View.inflate
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil.inflate
-import androidx.fragment.app.ListFragment
+import android.widget.Button
+import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.shop_app.R
-import com.example.shop_app.databinding.ActivityMainBinding.inflate
+import com.example.shop_app.RecyclerListener
 import com.example.shop_app.model.Shoe
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.view.*
 import kotlinx.android.synthetic.main.custom_row.view.*
 import kotlinx.android.synthetic.main.fragment_add_page.view.*
 
-class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ListAdapter(private val listener: RecyclerListener) : RecyclerView.Adapter<ListAdapter.MyViewHolder>(){
 
     private var shoeList = emptyList<Shoe>()
-    private var onClickListener: OnClickListener? = null
-
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
@@ -46,22 +46,31 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.image_on_item.load(shoeList[position].shoeImage)
 
         holder.itemView.setOnClickListener {
-//            val bundle = Bundle()
-//            bundle.putParcelable("shoe", currentItem)
-//            it.findNavController().navigate(R.id.action_homePageFragment_to_updateFragment, bundle)
             val action = HomePageFragmentDirections.actionHomePageFragmentToUpdateFragment()
             action.currentShoe = currentItem
             holder.itemView.findNavController().navigate(action)
         }
 
         holder.itemView.action_button_item.setOnClickListener {
-            val view = LayoutInflater.from(holder.itemView.context).inflate(R.layout.bottom_dialog_for_main_fragment, null)
-            val dialog = BottomSheetDialog(holder.itemView.context)
-            dialog.setContentView(view)
-            dialog.show()
+            listener.archiveProduct(currentItem)
+//            val view = LayoutInflater.from(holder.itemView.context)
+//                .inflate(R.layout.bottom_dialog_for_main_fragment, null)
+//            val dialog = BottomSheetDialog(holder.itemView.context)
+//            dialog.setContentView(view)
+//            dialog.show()
         }
-
     }
+//    private fun alertDialogArchive() {
+//        val builder = AlertDialog.Builder(context)
+//        builder.setTitle("Архивировать Air Jordn из каталога?")
+//        builder.setPositiveButton("Да") { _,_ ->
+//        }
+//        builder.setNegativeButton("Нет") { _,_ ->
+//            builder.setCancelable(true)
+//        }
+//        builder.create().show()
+//    }
+
     override fun getItemCount(): Int {
         return shoeList.size
     }

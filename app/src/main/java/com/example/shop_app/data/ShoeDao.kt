@@ -19,8 +19,8 @@ interface ShoeDao {
     @Query("SELECT * FROM shoe_table ORDER BY id ASC")
     fun readAllData(): LiveData<List<Shoe>>
 
-    @Query("SELECT * FROM shoe_table WHERE name LIKE :searchQuery OR distributor LIKE :searchQuery")
-    fun searchDatabase(searchQuery: String): Flow<List<Shoe>>
+    @Query("SELECT * FROM shoe_table WHERE name LIKE :searchQuery OR distributor LIKE :searchQuery ORDER BY id ASC")
+    fun searchDatabase(searchQuery: String): LiveData<List<Shoe>>
 
     @Update
     fun updateShoe(shoe: Shoe)

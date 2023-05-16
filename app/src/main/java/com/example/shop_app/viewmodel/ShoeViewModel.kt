@@ -27,7 +27,7 @@ class ShoeViewModel(application: Application): AndroidViewModel(application) {
         }
     }
     fun searchDatabase(searchQuery: String): LiveData<List<Shoe>> {
-        return presenter.searchDatabase(searchQuery).asLiveData()
+        return presenter.searchDatabase(searchQuery)
     }
     fun updateShoe(shoe: Shoe) {
         viewModelScope.launch (Dispatchers.IO){
