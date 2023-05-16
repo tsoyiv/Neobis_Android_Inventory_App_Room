@@ -11,21 +11,26 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.viewModels
 import com.example.shop_app.R
 import com.example.shop_app.RecyclerListener
+import com.example.shop_app.data.ShoeApplication
 import com.example.shop_app.databinding.ActivityMainBinding
 import com.example.shop_app.databinding.FragmentAddPageBinding
 import com.example.shop_app.model.Shoe
 import com.example.shop_app.viewmodel.ShoeViewModel
+import com.example.shop_app.viewmodel.ShoeViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.*
 import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.view.*
 import kotlinx.android.synthetic.main.fragment_home_page.view.*
 import kotlin.collections.ArrayList
 
-class HomePageFragment : Fragment(), RecyclerListener{
+class HomePageFragment : Fragment(), RecyclerListener {
 
-    private lateinit var mShoeViewModel: ShoeViewModel
+    private val mViewModel by viewModels<ShoeViewModel> {
+        ShoeViewModelFactory((requireActivity().application as ShoeApplication).repository)
+    }
     private lateinit var searchView: SearchView
     private lateinit var binding: FragmentAddPageBinding
 
@@ -45,7 +50,7 @@ class HomePageFragment : Fragment(), RecyclerListener{
         searchView.apply {
             isSubmitButtonEnabled = true
             setOnQueryTextListener(object :
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     if (query != null) {
                         searchDatabase(query)
@@ -62,8 +67,7 @@ class HomePageFragment : Fragment(), RecyclerListener{
             })
         }
 
-        mShoeViewModel = ViewModelProvider(this).get(ShoeViewModel::class.java)
-        mShoeViewModel.readAllData.observe(viewLifecycleOwner, Observer { shoe ->
+        mViewModel.getAllData(false).observe(viewLifecycleOwner, Observer { shoe ->
             adapter.setData(shoe)
         })
 
@@ -85,11 +89,12 @@ class HomePageFragment : Fragment(), RecyclerListener{
         builder.setView(dialogView)
         builder.create().show()
     }
+
     private fun logicForAlertDialog(shoe: Shoe) {
         AlertDialog.Builder(requireActivity()).apply {
             setTitle("Архивировать ${shoe.name} из каталога")
             setPositiveButton("Да") { _, _ ->
-                mShoeViewModel.updateShoe(
+                mViewModel.updateData(
                     Shoe(
                         shoe.id,
                         shoe.name,
@@ -109,7 +114,8 @@ class HomePageFragment : Fragment(), RecyclerListener{
             show()
         }
     }
-//    private fun alertDialogArchive() {
+
+    //    private fun alertDialogArchive() {
 //        val builder = AlertDialog.Builder(requireContext())
 //        builder.setTitle("Архивировать Air Jordn из каталога?")
 //        builder.setPositiveButton("Да") { _,_ ->
@@ -122,7 +128,7 @@ class HomePageFragment : Fragment(), RecyclerListener{
     private fun searchDatabase(query: String) {
         val searchQuery = "%$query%"
 
-        mShoeViewModel.searchDatabase(searchQuery).observe(viewLifecycleOwner) { list ->
+        mViewModel.getAllSearchProduct(searchQuery).observe(viewLifecycleOwner) { list ->
             list.let {
                 val adapter = ListAdapter(this)
                 adapter.setData(it)

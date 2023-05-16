@@ -50,6 +50,11 @@ class ListAdapter(private val listener: RecyclerListener) : RecyclerView.Adapter
             action.currentShoe = currentItem
             holder.itemView.findNavController().navigate(action)
         }
+        holder.itemView.setOnClickListener {
+            val action = ArchivePageFragmentDirections.actionArchivePageFragmentToUpdateFragment()
+            action.currentShoe = currentItem
+            holder.itemView.findNavController().navigate(action)
+        }
 
         holder.itemView.action_button_item.setOnClickListener {
             listener.archiveProduct(currentItem)

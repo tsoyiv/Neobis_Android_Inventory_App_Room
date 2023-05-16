@@ -20,8 +20,10 @@ import kotlinx.android.synthetic.main.fragment_archive_page.view.*
 import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlinx.android.synthetic.main.fragment_home_page.view.*
 import androidx.lifecycle.Observer
+import com.example.shop_app.data.ShoeApplication
 import com.example.shop_app.databinding.FragmentArchivePageBinding
 import com.example.shop_app.viewmodel.ArchiveViewModel
+import com.example.shop_app.viewmodel.ArchiveViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.view.*
 import kotlinx.android.synthetic.main.bottom_for_archive.*
@@ -33,7 +35,9 @@ class ArchivePageFragment : Fragment(), RecyclerListener {
     private lateinit var mShoeViewModel: ShoeViewModel
     private lateinit var searchView: SearchView
     private lateinit var binding: FragmentArchivePageBinding
-    private val archiveViewModel by viewModels<ArchiveViewModel>()
+    private val mViewModel by viewModels<ArchiveViewModel> {
+        ArchiveViewModelFactory((requireActivity().application as ShoeApplication).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,8 +71,7 @@ class ArchivePageFragment : Fragment(), RecyclerListener {
                 }
             })
         }
-        mShoeViewModel = ViewModelProvider(this).get(ShoeViewModel::class.java)
-        mShoeViewModel.readAllData.observe(viewLifecycleOwner, Observer { shoe ->
+        mViewModel.archiveShoes.observe(viewLifecycleOwner, Observer { shoe ->
             adapter.setData(shoe)
         })
         return view
@@ -77,7 +80,7 @@ class ArchivePageFragment : Fragment(), RecyclerListener {
     private fun searchDatabase(query: String) {
         val searchQuery = "%$query%"
 
-        mShoeViewModel.searchDatabase(searchQuery).observe(viewLifecycleOwner) { list ->
+        mViewModel.getSearchArchiveProduct(searchQuery).observe(viewLifecycleOwner) { list ->
             list.let {
                 val adapter = ListAdapter(this)
                 adapter.setData(it)
@@ -91,10 +94,9 @@ class ArchivePageFragment : Fragment(), RecyclerListener {
         val inflater = layoutInflater
         val dialogView = inflater.inflate(R.layout.bottom_for_archive, null)
 
-//        binding.root.bottom_archive_delete_archive.setOnClickListener {
-//            bottomAlert.state = BottomSheetBehavior.STATE_HIDDEN
-//            logicForAlertDialog2(shoe)
-//        }
+        bottom_archive_delete_archive.setOnClickListener {
+            deleteFunction(shoe)
+        }
 
         bottom_archive_in_archive.setOnClickListener {
             alertDialogIn(shoe)
@@ -103,20 +105,24 @@ class ArchivePageFragment : Fragment(), RecyclerListener {
         builder.create().show()
     }
 
+    private fun deleteFunction(shoe: Shoe) {
+        TODO("Not yet implemented")
+    }
+
     private fun alertDialogIn(shoe: Shoe) {
         AlertDialog.Builder(requireContext()).apply {
             setTitle("Востановить ${shoe.name} из архива?")
-            setPositiveButton("Да") { p0, _ ->
-                archiveViewModel.unArchiveData(shoe)
-                p0.dismiss()
+            setPositiveButton("Да") { list, _ ->
+                mViewModel.unArchiveData(shoe)
+                list.dismiss()
                 Toast.makeText(
                     requireContext(),
                     "Разорхивировано",
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            setNegativeButton("Нет") { p0, _ ->
-                p0.dismiss()
+            setNegativeButton("Нет") { list, _ ->
+                list.dismiss()
             }
             create()
             show()

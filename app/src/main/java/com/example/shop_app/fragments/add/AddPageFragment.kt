@@ -16,11 +16,15 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.core.view.drawToBitmap
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.shop_app.R
+import com.example.shop_app.data.ShoeApplication
 import com.example.shop_app.databinding.ActivityMainBinding
 import com.example.shop_app.model.Shoe
+import com.example.shop_app.viewmodel.AddViewModel
+import com.example.shop_app.viewmodel.AddViewModelFactory
 import com.example.shop_app.viewmodel.ShoeViewModel
 import kotlinx.android.synthetic.main.fragment_add_page.*
 import kotlinx.android.synthetic.main.fragment_add_page.view.*
@@ -31,7 +35,9 @@ class AddPageFragment : Fragment() {
         val IMAGE_REQUEST_CODE = 1
     }
     private var bitmap: Bitmap? = null
-    private lateinit var mShoeViewModel: ShoeViewModel
+    private val mViewModel by viewModels<AddViewModel> {
+        AddViewModelFactory((requireActivity().application as ShoeApplication).repository)
+    }
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreateView(
@@ -39,8 +45,6 @@ class AddPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_page, container, false)
-
-        mShoeViewModel = ViewModelProvider(this).get(ShoeViewModel::class.java)
 
         view.add_button.setOnClickListener {
             insertDataToDatabase()
@@ -99,7 +103,7 @@ class AddPageFragment : Fragment() {
 
         if (inputCheck(name_shoe, price_shoe, distributor_shoe, amount_shoe, image_shoe)) {
             val shoe = Shoe(0, name_shoe, price_shoe, distributor_shoe, amount_shoe, image_shoe.drawToBitmap(), false)
-            mShoeViewModel.addShoe(shoe)
+            mViewModel.addData(shoe)
             Toast.makeText(requireContext(), "Added", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_addPageFragment_to_homePageFragment)
         } else {

@@ -16,8 +16,8 @@ interface ShoeDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addShoe(shoe: Shoe)
 
-    @Query("SELECT * FROM shoe_table ORDER BY id ASC")
-    fun readAllData(): LiveData<List<Shoe>>
+//    @Query("SELECT * FROM shoe_table ORDER BY id ASC")
+//    fun readAllData(): LiveData<List<Shoe>>
 
     @Query("SELECT * FROM shoe_table WHERE name LIKE :searchQuery OR distributor LIKE :searchQuery ORDER BY id ASC")
     fun searchDatabase(searchQuery: String): LiveData<List<Shoe>>

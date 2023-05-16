@@ -18,13 +18,17 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.core.view.drawToBitmap
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.shop_app.R
+import com.example.shop_app.data.ShoeApplication
 import com.example.shop_app.databinding.ActivityMainBinding
 import com.example.shop_app.fragments.add.AddPageFragment
 import com.example.shop_app.model.Shoe
+import com.example.shop_app.viewmodel.AddViewModel
+import com.example.shop_app.viewmodel.AddViewModelFactory
 import com.example.shop_app.viewmodel.ShoeViewModel
 import kotlinx.android.synthetic.main.fragment_add_page.*
 import kotlinx.android.synthetic.main.fragment_add_page.view.*
@@ -35,7 +39,9 @@ import kotlinx.android.synthetic.main.fragment_update.view.cancel_text_btn
 class UpdateFragment : Fragment() {
 
     private val args: UpdateFragmentArgs by navArgs()
-    private lateinit var mShoeViewModel: ShoeViewModel
+    private val mViewModel by viewModels<AddViewModel> {
+        AddViewModelFactory((requireActivity().application as ShoeApplication).repository)
+    }
     private lateinit var editText: EditText
     private lateinit var binding: ActivityMainBinding
     private var bitmap: Bitmap? = null
@@ -45,8 +51,6 @@ class UpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_update, container, false)
-
-        mShoeViewModel = ViewModelProvider(this).get(ShoeViewModel::class.java)
 
         view.arrow_update_fragment_back.setOnClickListener {
             findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
@@ -116,19 +120,19 @@ class UpdateFragment : Fragment() {
             }
         }
 
-    private fun deleteShoe() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes") { _,_ ->
-            mShoeViewModel.deleteAllShoe(args.currentShoe)
-            Toast.makeText(requireContext(), "Removed", Toast.LENGTH_SHORT).show()
-
-        }
-        builder.setNegativeButton("No") { _,_ ->
-            builder.setTitle("Delete ${args.currentShoe?.name}?")
-            builder.setMessage("Are you sure ${args.currentShoe?.name}?")
-            builder.create().show()
-        }
-    }
+//    private fun deleteShoe() {
+//        val builder = AlertDialog.Builder(requireContext())
+//        builder.setPositiveButton("Yes") { _,_ ->
+//            mShoeViewModel.deleteAllShoe(args.currentShoe)
+//            Toast.makeText(requireContext(), "Removed", Toast.LENGTH_SHORT).show()
+//
+//        }
+//        builder.setNegativeButton("No") { _,_ ->
+//            builder.setTitle("Delete ${args.currentShoe?.name}?")
+//            builder.setMessage("Are you sure ${args.currentShoe?.name}?")
+//            builder.create().show()
+//        }
+//    }
 
     private fun updateItem() {
         val name = item_updateName_text.text.toString()
@@ -139,7 +143,7 @@ class UpdateFragment : Fragment() {
 
         if (inputCheck(name, price, distributor, amount)) {
             val updatedShoe = args.currentShoe?.let { Shoe(it.id, name, price, distributor, amount, image.drawToBitmap(), args.currentShoe!!.isArchived) }
-            updatedShoe?.let { mShoeViewModel.updateShoe(it) }
+            updatedShoe?.let { mViewModel.updateData(it) }
             findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
             Toast.makeText(requireContext(), "Updated", Toast.LENGTH_LONG).show()
         } else {

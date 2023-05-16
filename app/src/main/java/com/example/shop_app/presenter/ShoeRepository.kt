@@ -1,20 +1,20 @@
 package com.example.shop_app.presenter
 
-import android.text.BoringLayout
 import androidx.lifecycle.LiveData
 import com.example.shop_app.data.ShoeDao
 import com.example.shop_app.model.Shoe
-import kotlinx.coroutines.flow.Flow
 
-class ShoePresenter(private val shoeDao: ShoeDao) {
+class ShoeRepository(private val shoeDao: ShoeDao) {
 
-    val readAllData: LiveData<List<Shoe>> = shoeDao.readAllData()
+    fun readAllData(isArchived: Boolean): LiveData<List<Shoe>> {
+        return shoeDao.readAllData(isArchived)
+    }
 
 //    fun readAllData(isArchived: Boolean) : LiveData<List<Shoe>> {
 //        return shoeDao.readAllData(isArchived)
 //    }
 
-    suspend fun addShoe(shoe: Shoe){
+    fun addShoe(shoe: Shoe) {
         shoeDao.addShoe(shoe)
     }
 
@@ -29,7 +29,11 @@ class ShoePresenter(private val shoeDao: ShoeDao) {
     suspend fun deleteShoe(shoe: Shoe) {
         shoeDao.deleteShoe(shoe)
     }
+
     suspend fun deleteAllShoe() {
         shoeDao.deleteAllShoe()
+    }
+    fun getAllSearchArchiveProduct(searchWord: String) : LiveData<List<Shoe>> {
+        return shoeDao.searchDatabase(searchWord)
     }
 }

@@ -21,7 +21,11 @@
         android:id="@+id/archivePageFragment"
         android:name="com.example.shop_app.fragments.list.ArchivePageFragment"
         android:label="fragment_archive_page"
-        tools:layout="@layout/fragment_archive_page" />
+        tools:layout="@layout/fragment_archive_page" >
+        <action
+            android:id="@+id/action_archivePageFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addPageFragment"
         android:name="com.example.shop_app.fragments.add.AddPageFragment"
@@ -44,5 +48,8 @@
             app:argType="com.example.shop_app.model.Shoe"
             android:defaultValue="@null"
             app:nullable="true"/>
+        <action
+            android:id="@+id/action_updateFragment_to_archivePageFragment"
+            app:destination="@id/archivePageFragment" />
     </fragment>
 </navigation>
