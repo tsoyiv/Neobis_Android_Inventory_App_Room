@@ -1,36 +1,125 @@
 package com.example.shop_app.fragments.list
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.shop_app.R
+import com.example.shop_app.RecyclerListener
+import com.example.shop_app.databinding.ActivityMainBinding
+import com.example.shop_app.model.Shoe
+import com.example.shop_app.viewmodel.ShoeViewModel
+import kotlinx.android.synthetic.main.fragment_archive_page.view.*
 import kotlinx.android.synthetic.main.fragment_home_page.*
 import kotlinx.android.synthetic.main.fragment_home_page.view.*
+import androidx.lifecycle.Observer
+import com.example.shop_app.databinding.FragmentArchivePageBinding
+import com.example.shop_app.viewmodel.ArchiveViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.view.*
+import kotlinx.android.synthetic.main.bottom_for_archive.*
+import kotlinx.android.synthetic.main.bottom_for_archive.view.*
 
-class ArchivePageFragment : Fragment() {
 
+class ArchivePageFragment : Fragment(), RecyclerListener {
+
+    private lateinit var mShoeViewModel: ShoeViewModel
     private lateinit var searchView: SearchView
-    private lateinit var adapter: ListAdapter
+    private lateinit var binding: FragmentArchivePageBinding
+    private val archiveViewModel by viewModels<ArchiveViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_archive_page, container, false)
+        val view = inflater.inflate(R.layout.fragment_archive_page, container, false)
 
-//        adapter = ListAdapter()
-//        val recyclerView = view.recyclerview
-//        recyclerView.adapter = adapter
-//        recyclerView.setHasFixedSize(true)
-//        recyclerView?.layoutManager = GridLayoutManager(requireContext(), 2)
-//        searchView = view.findViewById(R.id.search_view_archive)
+        val adapter = ListAdapter(this)
+        val recyclerView = view.recyclerview_archive
+        recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
+        recyclerView?.layoutManager = GridLayoutManager(requireContext(), 2)
+        searchView = view.findViewById(R.id.search_view_archive)
 
+        searchView.apply {
+            isSubmitButtonEnabled = true
+            setOnQueryTextListener(object :
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (query != null) {
+                        searchDatabase(query)
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText != null) {
+                        searchDatabase(newText)
+                    }
+                    return true
+                }
+            })
+        }
+        mShoeViewModel = ViewModelProvider(this).get(ShoeViewModel::class.java)
+        mShoeViewModel.readAllData.observe(viewLifecycleOwner, Observer { shoe ->
+            adapter.setData(shoe)
+        })
         return view
     }
 
+    private fun searchDatabase(query: String) {
+        val searchQuery = "%$query%"
+
+        mShoeViewModel.searchDatabase(searchQuery).observe(viewLifecycleOwner) { list ->
+            list.let {
+                val adapter = ListAdapter(this)
+                adapter.setData(it)
+            }
+        }
+
+    }
+
+    override fun archiveProduct(shoe: Shoe) {
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.bottom_for_archive, null)
+
+//        binding.root.bottom_archive_delete_archive.setOnClickListener {
+//            bottomAlert.state = BottomSheetBehavior.STATE_HIDDEN
+//            logicForAlertDialog2(shoe)
+//        }
+
+        bottom_archive_in_archive.setOnClickListener {
+            alertDialogIn(shoe)
+        }
+        builder.setView(dialogView)
+        builder.create().show()
+    }
+
+    private fun alertDialogIn(shoe: Shoe) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Востановить ${shoe.name} из архива?")
+            setPositiveButton("Да") { p0, _ ->
+                archiveViewModel.unArchiveData(shoe)
+                p0.dismiss()
+                Toast.makeText(
+                    requireContext(),
+                    "Разорхивировано",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            setNegativeButton("Нет") { p0, _ ->
+                p0.dismiss()
+            }
+            create()
+            show()
+        }
+    }
 }

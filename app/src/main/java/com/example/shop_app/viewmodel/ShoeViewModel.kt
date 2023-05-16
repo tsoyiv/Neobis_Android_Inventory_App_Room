@@ -11,7 +11,7 @@ import com.example.shop_app.model.Shoe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ShoeViewModel(application: Application): AndroidViewModel(application) {
+open class ShoeViewModel(application: Application): AndroidViewModel(application) {
 
     val readAllData: LiveData<List<Shoe>>
     private val presenter: ShoePresenter
@@ -26,6 +26,9 @@ class ShoeViewModel(application: Application): AndroidViewModel(application) {
             presenter.addShoe(shoe)
         }
     }
+//    fun getAllData(isArchived: Boolean): LiveData<List<Shoe>> {
+//        return presenter.readAllData(isArchived)
+//    }
     fun searchDatabase(searchQuery: String): LiveData<List<Shoe>> {
         return presenter.searchDatabase(searchQuery)
     }

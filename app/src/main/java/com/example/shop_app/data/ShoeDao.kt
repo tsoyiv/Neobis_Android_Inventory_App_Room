@@ -22,11 +22,20 @@ interface ShoeDao {
     @Query("SELECT * FROM shoe_table WHERE name LIKE :searchQuery OR distributor LIKE :searchQuery ORDER BY id ASC")
     fun searchDatabase(searchQuery: String): LiveData<List<Shoe>>
 
+    @Query("SELECT * FROM shoe_table WHERE isArchived = :isArchived ORDER BY id ASC")
+    fun readAllData(isArchived: Boolean): LiveData<List<Shoe>>
+
     @Update
     fun updateShoe(shoe: Shoe)
 
     @Delete
     suspend fun deleteShoe(shoe: Shoe)
+
+    @Query("SELECT * FROM shoe_table WHERE name LIKE :searchQuery AND isArchived = :isArchived ORDER BY name ASC")
+    fun getSearchArchiveProduct(
+        searchQuery: String,
+        isArchived: Boolean = true
+    ): LiveData<List<Shoe>>
 
     @Query("DELETE FROM shoe_table")
     suspend fun deleteAllShoe()

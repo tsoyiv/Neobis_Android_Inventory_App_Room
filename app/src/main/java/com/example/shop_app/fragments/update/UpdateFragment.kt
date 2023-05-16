@@ -26,7 +26,6 @@ import com.example.shop_app.databinding.ActivityMainBinding
 import com.example.shop_app.fragments.add.AddPageFragment
 import com.example.shop_app.model.Shoe
 import com.example.shop_app.viewmodel.ShoeViewModel
-import com.google.android.material.progressindicator.BaseProgressIndicator.ShowAnimationBehavior
 import kotlinx.android.synthetic.main.fragment_add_page.*
 import kotlinx.android.synthetic.main.fragment_add_page.view.*
 import kotlinx.android.synthetic.main.fragment_update.*
@@ -139,7 +138,7 @@ class UpdateFragment : Fragment() {
         val image = update_image_button
 
         if (inputCheck(name, price, distributor, amount)) {
-            val updatedShoe = args.currentShoe?.let { Shoe(it.id, name, price, distributor, amount, image.drawToBitmap()) }
+            val updatedShoe = args.currentShoe?.let { Shoe(it.id, name, price, distributor, amount, image.drawToBitmap(), args.currentShoe!!.isArchived) }
             updatedShoe?.let { mShoeViewModel.updateShoe(it) }
             findNavController().navigate(R.id.action_updateFragment_to_homePageFragment)
             Toast.makeText(requireContext(), "Updated", Toast.LENGTH_LONG).show()

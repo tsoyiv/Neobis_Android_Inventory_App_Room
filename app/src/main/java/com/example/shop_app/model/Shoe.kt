@@ -4,12 +4,10 @@ import android.graphics.Bitmap
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Entity(tableName = "shoe_table")
-//@TypeConverters(Converter::class)
 data class Shoe(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
@@ -17,6 +15,6 @@ data class Shoe(
     val price: String,
     val distributor: String,
     val amount: String,
-    //val isArchived: Boolean
-    val shoeImage: Bitmap
+    val shoeImage: Bitmap,
+    val isArchived: Boolean
 ): Parcelable

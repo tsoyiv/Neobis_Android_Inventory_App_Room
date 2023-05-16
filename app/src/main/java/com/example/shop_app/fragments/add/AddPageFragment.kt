@@ -98,7 +98,7 @@ class AddPageFragment : Fragment() {
         val amount_shoe = item_amount_text.text.toString()
 
         if (inputCheck(name_shoe, price_shoe, distributor_shoe, amount_shoe, image_shoe)) {
-            val shoe = Shoe(0, name_shoe, price_shoe, distributor_shoe, amount_shoe, image_shoe.drawToBitmap())
+            val shoe = Shoe(0, name_shoe, price_shoe, distributor_shoe, amount_shoe, image_shoe.drawToBitmap(), false)
             mShoeViewModel.addShoe(shoe)
             Toast.makeText(requireContext(), "Added", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_addPageFragment_to_homePageFragment)
