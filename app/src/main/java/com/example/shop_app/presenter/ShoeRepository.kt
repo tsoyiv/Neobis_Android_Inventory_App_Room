@@ -26,8 +26,8 @@ class ShoeRepository(private val shoeDao: ShoeDao) {
         shoeDao.updateShoe(shoe)
     }
 
-    suspend fun deleteShoe(shoe: Shoe) {
-        shoeDao.deleteShoe(shoe)
+    suspend fun deleteProdShoe(id: Int) {
+        shoeDao.deleteShoe(id)
     }
 
     suspend fun deleteAllShoe() {

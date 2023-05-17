@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
@@ -29,6 +31,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.bottom_dialog_for_main_fragment.view.*
 import kotlinx.android.synthetic.main.bottom_for_archive.*
 import kotlinx.android.synthetic.main.bottom_for_archive.view.*
+import java.nio.file.Files.delete
 
 
 class ArchivePageFragment : Fragment(), RecyclerListener {
@@ -95,11 +98,13 @@ class ArchivePageFragment : Fragment(), RecyclerListener {
         val inflater = layoutInflater
         val dialogView = inflater.inflate(R.layout.bottom_for_archive, null)
 
-        bottom_archive_delete_archive.setOnClickListener {
+        val bottomArchiveDeleteArchive = view?.findViewById<TextView>(R.id.bottom_archive_delete_archive)
+        bottomArchiveDeleteArchive?.setOnClickListener {
             deleteFunction(shoe)
         }
 
-        bottom_archive_in_archive.setOnClickListener {
+        val bottomArchiveInArchive = view?.findViewById<Button>(R.id.bottom_archive_in_archive)
+        bottomArchiveInArchive?.setOnClickListener {
             alertDialogIn(shoe)
         }
         bottomSheetDialog.setContentView(dialogView)
@@ -107,7 +112,20 @@ class ArchivePageFragment : Fragment(), RecyclerListener {
     }
 
     private fun deleteFunction(shoe: Shoe) {
-        TODO("Not yet implemented")
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle("Удалить ${shoe.name} из архива?")
+            setPositiveButton("Да") { list, _ ->
+                mViewModel.deleteProduct(shoe.id)
+                list.dismiss()
+                Toast.makeText(requireContext(), "Удалено", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            setNegativeButton("Нет") { list, _ ->
+                list.dismiss()
+            }
+            create()
+            show()
+        }
     }
 
     private fun alertDialogIn(shoe: Shoe) {

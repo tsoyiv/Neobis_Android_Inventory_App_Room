@@ -28,8 +28,8 @@ interface ShoeDao {
     @Update
     fun updateShoe(shoe: Shoe)
 
-    @Delete
-    suspend fun deleteShoe(shoe: Shoe)
+    @Query("DELETE FROM shoe_table WHERE id = :id")
+    suspend fun deleteShoe(id: Int)
 
     @Query("SELECT * FROM shoe_table WHERE name LIKE :searchQuery AND isArchived = :isArchived ORDER BY name ASC")
     fun getSearchArchiveProduct(
