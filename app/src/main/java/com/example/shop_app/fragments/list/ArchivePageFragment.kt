@@ -98,18 +98,16 @@ class ArchivePageFragment : Fragment(), RecyclerListener {
         val inflater = layoutInflater
         val dialogView = inflater.inflate(R.layout.bottom_for_archive, null)
 
-        val bottomArchiveDeleteArchive = view?.findViewById<TextView>(R.id.bottom_archive_delete_archive)
-        bottomArchiveDeleteArchive?.setOnClickListener {
-            deleteFunction(shoe)
-        }
-
-        val bottomArchiveInArchive = view?.findViewById<Button>(R.id.bottom_archive_in_archive)
-        bottomArchiveInArchive?.setOnClickListener {
+        dialogView.bottom_archive_in_archive.setOnClickListener {
             alertDialogIn(shoe)
+        }
+        dialogView.bottom_archive_delete_archive.setOnClickListener {
+            deleteFunction(shoe)
         }
         bottomSheetDialog.setContentView(dialogView)
         bottomSheetDialog.show()
     }
+
 
     private fun deleteFunction(shoe: Shoe) {
         AlertDialog.Builder(requireContext()).apply {
