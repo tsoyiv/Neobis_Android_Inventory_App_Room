@@ -33,7 +33,7 @@ class ArchiveViewModel(private val repository: ShoeRepository): ViewModel() {
                     shoe.distributor,
                     shoe.amount,
                     shoe.shoeImage,
-                    true
+                    false
                 )
             )
         }
